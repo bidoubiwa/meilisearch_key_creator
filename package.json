@@ -1,0 +1,29 @@
+{
+  "name": "determinist-search-key-for-integration-playgrounds",
+  "version": "0.1.0",
+  "description": "Creates the deterministic search-api key in the integrations instance",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint --ext .js .",
+    "lint:fix": "eslint --ext .js . --fix"
+  },
+  "files": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/meilisearch/js-project-boilerplate.git"
+  },
+  "keywords": [
+    "meilisearch",
+    "search"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meilisearch/js-project-boilerplate.git/issues"
+  },
+  "devDependencies": {
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2"
+  }
+}
