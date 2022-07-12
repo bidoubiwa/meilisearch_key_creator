@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --ext .js .",
-    "lint:fix": "eslint --ext .js . --fix"
+    "lint:fix": "eslint --ext .js . --fix",
+    "test": "jest --runInBand --verbose"
   },
   "files": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/meilisearch/js-project-boilerplate.git"
+    "url": "https://github.com/meilisearch/integration_deterministic_search_api_key"
   },
   "keywords": [
     "meilisearch",
@@ -18,12 +19,18 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/meilisearch/js-project-boilerplate.git/issues"
+    "url": "https://github.com/meilisearch/integration_deterministic_search_api_key"
   },
   "devDependencies": {
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "jest": "^28.1.2",
     "prettier": "^2.3.2"
+  },
+  "dependencies": {
+    "@types/jest": "^28.1.4",
+    "dotenv": "^16.0.1",
+    "meilisearch": "^0.27.0"
   }
 }
