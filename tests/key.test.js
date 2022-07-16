@@ -23,6 +23,7 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyActions: ['*'],
       keyIndexes: ['*'],
+      keyExpiresAt: null,
     })
 
     const keyUid = '10b8db1d-33a4-4016-913c-9130aef472bf'
@@ -37,6 +38,31 @@ describe('Test on keys', () => {
     expect(key.description).toEqual(keyDescription)
   })
 
+  test('key: create key with empty keyDescription succesfully', async () => {
+    const key = await createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(key.description).toEqual('')
+  })
+
+  test('key: create key with empty keyName succesfully', async () => {
+    const key = await createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(key.name).toEqual('')
+  })
+
   test('key: re-create same key should throw', async () => {
     await createDeterministApiKey({
       ...defaultConfig,
@@ -45,6 +71,7 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyActions: ['*'],
       keyIndexes: ['*'],
+      keyExpiresAt: null,
     })
 
     const createKeyPromise = createDeterministApiKey({
@@ -54,6 +81,7 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyActions: ['*'],
       keyIndexes: ['*'],
+      keyExpiresAt: null,
     })
 
     expect(createKeyPromise).rejects.toThrow(
@@ -61,7 +89,37 @@ describe('Test on keys', () => {
     )
   })
 
-  test('key: create key with wrong uid should throw', async () => {
+  test('key: create key with wrong host should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      host: 123,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(createKeyPromise).rejects.toThrow('host must be a string')
+  })
+
+  test('key: create key with wrong apiKey should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      apiKey: 123,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(createKeyPromise).rejects.toThrow('apiKey must be a string')
+  })
+
+  test('key: create key with wrong uuid4 format for keyUid should throw', async () => {
     const createKeyPromise = createDeterministApiKey({
       ...defaultConfig,
       keyUid: '1234',
@@ -69,9 +127,51 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyActions: ['*'],
       keyIndexes: ['*'],
+      keyExpiresAt: null,
     })
 
     expect(createKeyPromise).rejects.toThrow('keyUid must be a valid uui4')
+  })
+
+  test('key: create key with wrong type for keyUid should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: 123,
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(createKeyPromise).rejects.toThrow('keyUid must be a string')
+  })
+
+  test('key: create key with wrong type for keyName should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 123,
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(createKeyPromise).rejects.toThrow('keyName must be a string')
+  })
+
+  test('key: create key with wrong type for keyDescription should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 123,
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+      keyExpiresAt: null,
+    })
+
+    expect(createKeyPromise).rejects.toThrow('keyDescription must be a string')
   })
 
   test('key: create key with wrong type for keyActions should throw', async () => {
@@ -82,6 +182,7 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyActions: 'plouf',
       keyIndexes: ['*'],
+      keyExpiresAt: null,
     })
 
     expect(createKeyPromise).rejects.toThrow(
@@ -97,10 +198,43 @@ describe('Test on keys', () => {
       keyDescription: 'Key test 1',
       keyIndexes: 'plouf',
       keyActions: ['*'],
+      keyExpiresAt: null,
     })
 
     expect(createKeyPromise).rejects.toThrow(
       'keyIndexes must be an array of strings'
+    )
+  })
+
+  test('key: create key with undefined type for keyExpiresAt should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyIndexes: ['*'],
+      keyActions: ['*'],
+      keyExpiresAt: undefined,
+    })
+
+    expect(createKeyPromise).rejects.toThrow(
+      'keyExpiresAt must be a string or a null value'
+    )
+  })
+
+  test('key: create key with number type for keyExpiresAt should throw', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyIndexes: ['*'],
+      keyActions: ['*'],
+      keyExpiresAt: 123,
+    })
+
+    expect(createKeyPromise).rejects.toThrow(
+      'keyExpiresAt must be a string or a null value'
     )
   })
 })

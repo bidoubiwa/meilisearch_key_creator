@@ -51,7 +51,7 @@ function arrayOnlyContainsStrings(arr) {
  */
 function validateCredentials({ host, apiKey }) {
   if (typeof host !== `string`) {
-    throw Error('Host must be a string')
+    throw Error('host must be a string')
   }
 
   if (typeof apiKey !== `string`) {
@@ -66,10 +66,11 @@ function validateCredentials({ host, apiKey }) {
  * @param  {String} options.host - Meilisearch host
  * @param  {String} options.apiKey - Meilisearch apiKey
  * @param  {String} options.keyUid - Key uid, must be in uui4 format
- * @param  {String} options.keyName - Key name
- * @param  {String} options.keyDescription - Key description
+ * @param  {String} [options.keyName = ''] - Key name
+ * @param  {String} [options.keyDescription = ''] - Key description
  * @param  {String[]} options.keyActions - Actions that the key allows
  * @param  {String[]} options.keyIndexes - Indexes on which the key works
+ * @param  {String | null} options.keyExpiresAt - Expire date of the key
  *
  * @returns {void}
  */
@@ -78,10 +79,11 @@ function validateKeyCreationParams(options) {
     host,
     apiKey,
     keyUid,
-    keyName,
-    keyDescription,
+    keyName = '',
+    keyDescription = '',
     keyActions,
     keyIndexes,
+    keyExpiresAt,
   } = options
 
   validateCredentials({ host, apiKey })
@@ -102,6 +104,14 @@ function validateKeyCreationParams(options) {
 
   if (!Array.isArray(keyIndexes) || !arrayOnlyContainsStrings(keyIndexes)) {
     throw Error('keyIndexes must be an array of strings')
+  }
+
+  if (!keyExpiresAt && keyExpiresAt === undefined) {
+    throw Error('keyExpiresAt must be a string or a null value')
+  }
+
+  if (keyExpiresAt && typeof keyExpiresAt !== 'string') {
+    throw Error('keyExpiresAt must be a string or a null value')
   }
 }
 
