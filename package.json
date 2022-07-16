@@ -4,7 +4,7 @@
   "description": "Creates the deterministic search-api key in the integrations instance",
   "main": "index.js",
   "scripts": {
-    "create-key": "node ./src/index.js",
+    "create-key": "node ./index.js",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --ext .js . --fix",
     "test": "jest --runInBand --verbose --coverage",
