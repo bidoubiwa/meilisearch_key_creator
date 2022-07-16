@@ -16,6 +16,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
       - name: Install dependencies
         run: yarn --dev
       - name: Run style check
@@ -25,7 +29,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        node: ["12", "14", "16"]
+        node: ['12', '14', '16']
     name: integration-tests (Node.js ${{ matrix.node }})
     steps:
       - uses: actions/checkout@v3
