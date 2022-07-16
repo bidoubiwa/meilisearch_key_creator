@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/meilisearch/integration-guides/main/assets/logos/meilisearch_js.svg" alt="Meilisearch" width="200" height="200" />
+  <img src="https://github.com/meilisearch/integration-guides/raw/main/assets/logos/logo.svg" alt="Meilisearch" width="200" height="200" />
 </p>
 
 <h1 align="center">Determinitic key creator for a Meilisearch instance</h1>
