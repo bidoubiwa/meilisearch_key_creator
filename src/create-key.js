@@ -75,8 +75,6 @@ function validateParams(options) {
     throw Error('keyDescription must be a string')
   }
 
-  console.log({ keyActions, keyIndexes })
-
   if (!Array.isArray(keyActions) || !arrayOnlyContainsStrings(keyActions)) {
     throw Error('keyActions must be an array of strings')
   }
