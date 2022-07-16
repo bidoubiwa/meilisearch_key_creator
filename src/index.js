@@ -10,6 +10,7 @@ const KEY_ACTIONS = process.env.KEY_ACTIONS || 'search'
 const KEY_INDEXES = process.env.KEY_INDEXES || '*'
 
 ;(async () => {
+  console.log('Starting key creation...')
   await createDeterministApiKey({
     host: HOST,
     apiKey: API_KEY,
@@ -19,4 +20,5 @@ const KEY_INDEXES = process.env.KEY_INDEXES || '*'
     keyActions: KEY_ACTIONS.split(','),
     keyIndexes: KEY_INDEXES.split(','),
   })
+  console.log('Succesfully created the key')
 })()
