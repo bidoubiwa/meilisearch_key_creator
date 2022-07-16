@@ -14,13 +14,13 @@
 
 <p align="center">
   <!-- TODO: add -->
-  <!-- <a href="https://app.bors.tech/repositories/34942"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a> -->
-    <!-- <a href="https://github.com/meilisearch/js-project-boilerplate/actions"><img src="https://github.com/meilisearch/js-project-boilerplate/workflows/Tests/badge.svg" alt="Tests"></a> -->
-  <!-- <a href="https://github.com/meilisearch/js-project-boilerplate/blob/main/LICENCE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a> -->
+  <a href="https://app.bors.tech/repositories/34942"><img src="https://bors.tech/images/badge_small.svg" alt="Bors enabled"></a>
+  <a href="https://github.com/bidoubiwa/deterministic_key_creation/actions"><img src="https://github.com/bidoubiwa/deterministic_key_creation/workflows/Tests/badge.svg" alt="Tests"></a>
+  <a href="https://github.com/bidoubiwa/deterministic_key_creation/blob/main/LICENCE"><img src="https://img.shields.io/badge/license-MIT-informational" alt="License"></a>
 </p>
 <br/>
 
-<p align="center" style="font-weight:bold;" >A CI to create a deterministic api key on a given instance</p>
+<p align="center" style="font-weight:bold;" >A Manually triggered CI to create a deterministic api key on a given instance</p>
 
 <br/>
 
