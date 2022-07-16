@@ -41,14 +41,13 @@ jobs:
     runs-on: ubuntu-latest
     name: Create deterministic key
     steps:
-      - run: |
-          echo "host: $MEILI_HTTP_ADDR"
-          echo "apiKey: $MEILI_API_KEY"
-          echo "keyUid: $KEY_UUID"
-          echo "keyDescription: $KEY_DESCRIPTION"
-          echo "keyName: $KEY_NAME"
-          echo "keyActions: $KEY_ACTIONS"
-          echo "keyIndexes: $KEY_INDEXES"
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+      - name: Install dependencies
+        run: yarn --dev
+      - name: Create key
+        run: yarn create-key
         env:
           MEILI_HTTP_ADDR: ${{ inputs.host }}
           MEILI_API_KEY: ${{ inputs.apiKey }}
