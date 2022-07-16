@@ -1,4 +1,4 @@
-const { createDeterministApiKey } = require('../create-key')
+const { createDeterministApiKey } = require('../src/create-key')
 const { deleteAllNonDefaultKeys } = require('./test-utils')
 
 const defaultConfig = {
@@ -21,6 +21,8 @@ describe('Test on keys', () => {
       keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
       keyName: 'test-1',
       keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
     })
 
     const keyUid = '10b8db1d-33a4-4016-913c-9130aef472bf'
@@ -41,8 +43,40 @@ describe('Test on keys', () => {
       keyUid: '1234',
       keyName: 'test-1',
       keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
     })
 
     expect(createKeyPromise).rejects.toThrow('keyUid must be a valid uui4')
+  })
+
+  test('key: create key with wrong type for keyActions', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: 'plouf',
+      keyIndexes: ['*'],
+    })
+
+    expect(createKeyPromise).rejects.toThrow(
+      'keyActions must be an array of strings'
+    )
+  })
+
+  test('key: create key with wrong type for keyIndexes', async () => {
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyIndexes: 'plouf',
+      keyActions: ['*'],
+    })
+
+    expect(createKeyPromise).rejects.toThrow(
+      'keyIndexes must be an array of strings'
+    )
   })
 })
