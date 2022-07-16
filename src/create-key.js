@@ -14,6 +14,19 @@ function validateUuid4(uuid) {
 }
 
 /**
+ * Validates if the provided array only contains strings
+ *
+ * @param  {String[]} arr - Array to check
+ *
+ * @returns {boolean} true if array only contains strings
+ */
+function arrayOnlyContainsStrings(arr) {
+  const nonStrings = arr.find(elem => typeof elem !== 'string')
+
+  return !nonStrings
+}
+
+/**
  * Validates the user inputs
  *
  * @param  {object} options
@@ -22,11 +35,21 @@ function validateUuid4(uuid) {
  * @param  {String} options.keyUid - Key uid, must be in uui4 format
  * @param  {String} options.keyName - Key name
  * @param  {String} options.keyDescription - Key description
+ * @param  {String[]} options.keyActions - Actions that the key allows
+ * @param  {String[]} options.keyIndexes - Indexes on which the key works
  *
  * @returns {void}
  */
 function validateParams(options) {
-  const { host, apiKey, keyUid, keyName, keyDescription } = options
+  const {
+    host,
+    apiKey,
+    keyUid,
+    keyName,
+    keyDescription,
+    keyActions,
+    keyIndexes,
+  } = options
 
   if (typeof host !== `string`) {
     throw Error('Host must be a string')
@@ -69,11 +92,22 @@ function validateParams(options) {
  * @param  {String} options.keyUid - Key uid, must be in uui4 format
  * @param  {String} options.keyName - Key name
  * @param  {String} options.keyDescription - Key description
+ * @param  {String[]} options.keyActions - Actions that the key allows
+ * @param  {String[]} options.keyIndexes - Indexes on which the key works
  *
  * @returns {Promise<object>} Key
  */
 async function createDeterministApiKey(options) {
-  const { host, apiKey, keyUid, keyName, keyDescription } = options
+  const {
+    host,
+    apiKey,
+    keyUid,
+    keyName,
+    keyDescription,
+    keyActions,
+    keyIndexes,
+  } = options
+
   validateParams(options)
 
   const client = new MeiliSearch({ host, apiKey })
@@ -83,8 +117,8 @@ async function createDeterministApiKey(options) {
     uid: keyUid,
     name: keyName,
     description: keyDescription,
-    actions: ['search'],
-    indexes: ['indexes'],
+    actions: keyActions,
+    indexes: keyIndexes,
     expiresAt: null,
   })
 
