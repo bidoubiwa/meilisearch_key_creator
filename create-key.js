@@ -51,6 +51,13 @@ function validateParams(options) {
   if (typeof keyDescription !== `string`) {
     throw Error('keyDescription must be a string')
   }
+
+  if (!Array.isArray(keyActions) || !arrayOnlyContainsStrings(keyActions)) {
+    throw Error('keyActions must be an array of strings')
+  }
+  if (!Array.isArray(keyIndexes) || !arrayOnlyContainsStrings(keyIndexes)) {
+    throw Error('keyIndexes must be an array of strings')
+  }
 }
 
 /**
