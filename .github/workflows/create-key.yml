@@ -1,3 +1,5 @@
+name: Create key
+
 on:
   workflow_dispatch:
     inputs:
@@ -35,8 +37,9 @@ on:
         type: string
 
 jobs:
-  log-the-inputs:
+  create-deterministic-key:
     runs-on: ubuntu-latest
+    name: Create deterministic key
     steps:
       - run: |
           echo "host: $MEILI_HTTP_ADDR"
