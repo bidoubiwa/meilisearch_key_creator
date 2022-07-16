@@ -8,10 +8,11 @@ const { validateKeyCreationParams } = require('./validate')
  * @param  {String} options.host - Meilisearch host
  * @param  {String} options.apiKey - Meilisearch apiKey
  * @param  {String} options.keyUid - Key uid, must be in uui4 format
- * @param  {String} options.keyName - Key name
- * @param  {String} options.keyDescription - Key description
+ * @param  {String} [options.keyName = ''] - Key name
+ * @param  {String} [options.keyDescription = ''] - Key description
  * @param  {String[]} options.keyActions - Actions that the key allows
  * @param  {String[]} options.keyIndexes - Indexes on which the key works
+ * @param  {String | null} options.keyExpiresAt - Expire date of the key
  *
  * @returns {Promise<object>} Key
  */
@@ -20,10 +21,11 @@ async function createDeterministApiKey(options) {
     host,
     apiKey,
     keyUid,
-    keyName,
-    keyDescription,
+    keyName = '',
+    keyDescription = '',
     keyActions,
     keyIndexes,
+    keyExpiresAt,
   } = options
 
   validateKeyCreationParams(options)
@@ -37,7 +39,7 @@ async function createDeterministApiKey(options) {
     description: keyDescription,
     actions: keyActions,
     indexes: keyIndexes,
-    expiresAt: null,
+    expiresAt: keyExpiresAt,
   })
 
   return key

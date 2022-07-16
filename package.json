@@ -7,8 +7,8 @@
     "create-key": "node ./src/index.js",
     "lint": "eslint --ext .js .",
     "lint:fix": "eslint --ext .js . --fix",
-    "test": "jest --runInBand --verbose",
-    "test:watch": "jest --runInBand --verbose --watch"
+    "test": "jest --runInBand --verbose --coverage",
+    "test:watch": "jest --runInBand --verbose --coverage --watch"
   },
   "files": [],
   "repository": {
@@ -35,5 +35,14 @@
     "@types/node": "^18.0.5",
     "dotenv": "^16.0.1",
     "meilisearch": "^0.27.0"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": ["./src/**"],
+    "coverageThreshold": {
+      "global": {
+        "lines": 90
+      }
+    }
   }
 }
