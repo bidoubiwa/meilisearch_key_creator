@@ -35,6 +35,10 @@ The purpose of this tool is to be able to quickly re-create a deterministic key 
 3. Fill the form
 4. Click on `Run workflow` at the bottom of the form
 
+## Example
+
+<img src="assets/form_example.png" alt="Workflow form" width=300/>
+
 ## 🤖 Compatibility with Meilisearch
 
 This package only guarantees the compatibility with the [version v0.28.0 of Meilisearch](https://github.com/meilisearch/meilisearch/releases/tag/v0.28.0).
