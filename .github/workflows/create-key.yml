@@ -1,0 +1,56 @@
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: 'Meilisearch host'
+        required: true
+        type: string
+      apiKey:
+        description: 'Meilisearch api key (w/ enough rights to create a key)'
+        required: true
+        type: string
+      keyUid:
+        description: 'Uid used to generate a determinist key (uuid4 format mandatory)'
+        required: true
+        type: string
+      keyDescription:
+        description: 'Description of the key'
+        default: 'Deterministic key'
+        required: true
+        type: string
+      keyName:
+        description: 'Name of the key'
+        default: 'deterministic_key'
+        required: true
+        type: string
+      keyActions:
+        description: 'Actions the key is allowed to perform (comma separated list)'
+        default: 'search'
+        required: true
+        type: string
+      keyIndexes:
+        description: 'Indexes on which the key is allowed to perform (comma separated list)'
+        default: '*'
+        required: true
+        type: string
+
+jobs:
+  log-the-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "host: $MEILI_HTTP_ADDR"
+          echo "apiKey: $MEILI_API_KEY"
+          echo "keyUid: $KEY_UUID"
+          echo "keyDescription: $KEY_DESCRIPTION"
+          echo "keyName: $KEY_NAME"
+          echo "keyActions: $KEY_ACTIONS"
+          echo "keyIndexes: $KEY_INDEXES"
+        env:
+          MEILI_HTTP_ADDR: ${{ inputs.host }}
+          MEILI_API_KEY: ${{ inputs.apiKey }}
+          KEY_UUID: ${{ inputs.keyUid }}
+          KEY_DESCRIPTION: ${{ inputs.keyDescription }}
+          KEY_NAME: ${{ inputs.keyName }}
+          KEY_ACTIONS: ${{ inputs.keyActions }}
+          KEY_INDEXES: ${{ inputs.keyIndexes }}
