@@ -18,12 +18,12 @@ on:
       keyDescription:
         description: 'Description of the key'
         default: 'Deterministic key'
-        required: true
+        required: false
         type: string
       keyName:
         description: 'Name of the key'
         default: 'deterministic_key'
-        required: true
+        required: false
         type: string
       keyActions:
         description: 'Actions the key is allowed to perform (comma separated list)'
@@ -34,6 +34,11 @@ on:
         description: 'Indexes on which the key is allowed to perform (comma separated list)'
         default: '*'
         required: true
+        type: string
+      keyExpiresAt:
+        description: 'Expires date of the key (default null)'
+        default: ''
+        required: false
         type: string
 
 jobs:
@@ -56,3 +61,4 @@ jobs:
           KEY_NAME: ${{ inputs.keyName }}
           KEY_ACTIONS: ${{ inputs.keyActions }}
           KEY_INDEXES: ${{ inputs.keyIndexes }}
+          KEY_EXPIRES_AT: ${{ inputs.keyExpiresAT }}
