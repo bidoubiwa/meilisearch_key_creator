@@ -15,7 +15,7 @@ describe('Test on keys', () => {
     await deleteAllNonDefaultKeys()
   })
 
-  test('key: create key', async () => {
+  test('key: create key succesfully', async () => {
     const key = await createDeterministApiKey({
       ...defaultConfig,
       keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
@@ -37,7 +37,31 @@ describe('Test on keys', () => {
     expect(key.description).toEqual(keyDescription)
   })
 
-  test('key: create key with wrong uid', async () => {
+  test('key: re-create same key should throw', async () => {
+    await createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+    })
+
+    const createKeyPromise = createDeterministApiKey({
+      ...defaultConfig,
+      keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
+      keyName: 'test-1',
+      keyDescription: 'Key test 1',
+      keyActions: ['*'],
+      keyIndexes: ['*'],
+    })
+
+    expect(createKeyPromise).rejects.toThrow(
+      '`uid` field value `10b8db1d-33a4-4016-913c-9130aef472bf` is already an existing API key.'
+    )
+  })
+
+  test('key: create key with wrong uid should throw', async () => {
     const createKeyPromise = createDeterministApiKey({
       ...defaultConfig,
       keyUid: '1234',
@@ -50,7 +74,7 @@ describe('Test on keys', () => {
     expect(createKeyPromise).rejects.toThrow('keyUid must be a valid uui4')
   })
 
-  test('key: create key with wrong type for keyActions', async () => {
+  test('key: create key with wrong type for keyActions should throw', async () => {
     const createKeyPromise = createDeterministApiKey({
       ...defaultConfig,
       keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
@@ -65,7 +89,7 @@ describe('Test on keys', () => {
     )
   })
 
-  test('key: create key with wrong type for keyIndexes', async () => {
+  test('key: create key with wrong type for keyIndexes should throw', async () => {
     const createKeyPromise = createDeterministApiKey({
       ...defaultConfig,
       keyUid: '10b8db1d-33a4-4016-913c-9130aef472bf',
